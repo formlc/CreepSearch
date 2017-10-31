@@ -8,7 +8,8 @@ $(document).ready(function() {
     storageBucket: "",
     messagingSenderId: "724675415469"
   	};
-  	
+
   	firebase.initializeApp(config);
 
+  	var database = firebase.database();
 })
