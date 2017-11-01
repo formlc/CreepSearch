@@ -12,4 +12,21 @@ $(document).ready(function() {
   	firebase.initializeApp(config);
 
   	var database = firebase.database();
-})
+    var person = "";
+    var fullcAPIkey = "fee7e92ad9005378"
+
+    $("#create").on("click", function() {
+
+      person = $("#email").val();
+
+      $.ajax({        
+        url:"https://api.fullcontact.com/v2/person.json?email=" + person + "&APIKey=" + fullcAPIkey,
+        method: "GET"       
+      }).done(function(response) {
+          console.log(response); 
+      });    
+    });
+
+
+     
+});
