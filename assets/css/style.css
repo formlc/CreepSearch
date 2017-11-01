@@ -2,4 +2,16 @@ body {
 	background-image: url("../images/eyes_spying_icon.png");
 	/* background-repeat: no-repeat;
 	background-size: cover; */
+}
 
+.headingText {
+	text-align: center;
+}
+
+h2 {
+	text-align: center;
+}
+
+#add-email {
+	margin-top: 10px;
+}
