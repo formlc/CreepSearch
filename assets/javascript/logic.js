@@ -15,9 +15,9 @@ $(document).ready(function() {
     var person = "";
     var fullcAPIkey = "fee7e92ad9005378"
 
-    $("#create").on("click", function() {
+    $("#submit").on("click", function() {
 
-      person = $("#email").val();
+      person = $("#email-input").val();
 
       $.ajax({        
         url:"https://api.fullcontact.com/v2/person.json?email=" + person + "&APIKey=" + fullcAPIkey,
