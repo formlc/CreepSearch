@@ -1,17 +1,37 @@
 body {
-	background-image: url("../images/creepy-eyes.jpg");
-	background-repeat: no-repeat;
-	background-size: cover;
+	background-image: url("../images/ben.jpg");
+	/*background-repeat: no-repeat;
+	background-size: cover;*/
+}
+
+.jumbotron {
+	background-color:#a1a898;
 }
 
 .headingText {
 	text-align: center;
+	color: white;
 }
 
 h2 {
 	text-align: center;
+	color: white;
 }
 
-#add-email {
+.panel-primary {
+	border-color: #a1a898;
+}
+
+.panel-body {
+	border-color: #a1a898;
+}
+
+#panel-color {
+	background-color: #a1a898;
+}
+
+#add-stock {
+	background-color: #a1a898;
 	margin-top: 10px;
+	border-color: #a1a898;
 }
