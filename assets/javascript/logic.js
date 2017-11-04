@@ -1,3 +1,5 @@
+var o;
+
 $(document).ready(function() {
 
 	 var config = {
@@ -14,7 +16,6 @@ $(document).ready(function() {
   	var database = firebase.database();
     var person = "";
     var alphaVanAPIkey = "FJH3LVLVBBGH5FWT";
-    var date = 
 
 
     $("#add-stock").on("click", function() {
@@ -24,26 +25,40 @@ $(document).ready(function() {
       $.ajax({        
         url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + person + "&apikey=" + alphaVanAPIkey,
         method: "GET"       
-      }).done(function(response) {  
+      }).done(function(response) { 
+        console.log(response); 
 
         var btnMaker = $("<button>")
-
         btnMaker.text(person);
         btnMaker.addClass("btn");
         btnMaker.addClass("stock-button");
-
-        console.log(btnMaker);
-        console.log($(btnMaker));
-
         $(".button-area").append(btnMaker);
 
-        console.log(response);
-        var open = response["Time Series (Daily)"]["2017-06-15"]["1. open"];
+        var seriesData = response["Time Series (Daily)"];
+        var numDays = [];
+        var numDaysCount = 0;
+        var closePrice = [];
+
+        for (var index in seriesData) {
+
+          var object = seriesData[index];
+
+          console.log(object);
+          console.log(object["1. open"]);
+          closePrice.push(object["4. close"]);
+          console.log(object["5. volume"]);
+          numDaysCount++;
+          numDays.push(numDaysCount);
+        }
+
+        console.log(numDays);
+
+
 
         TESTER = document.getElementById('result-panel-left');
         Plotly.plot( TESTER, [{
-        x: [1, 2, 3, 4, 5],
-        y: [1, 2, 4, 8, 16] }], {
+        x: numDays,
+        y: closePrice }], {
         margin: { t: 0 } } );
  
 
