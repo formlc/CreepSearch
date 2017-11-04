@@ -13,20 +13,19 @@ $(document).ready(function() {
 
   	var database = firebase.database();
     var person = "";
-    var fullcAPIkey = "fee7e92ad9005378"
+    var alphaVanAPIkey = "FJH3LVLVBBGH5FWT";
 
-    $("#create").on("click", function() {
+    $("#add-email").on("click", function() {
 
-      person = $("#email").val();
+      person = $("#email-input").val();
 
       $.ajax({        
-        url:"https://api.fullcontact.com/v2/person.json?email=" + person + "&APIKey=" + fullcAPIkey,
+        url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + person + "&apikey=" + alphaVanAPIkey,
         method: "GET"       
       }).done(function(response) {
           console.log(response); 
-      });    
-    });
-
-
-     
+      }).fail(function(error) {
+        console.log(error);
+      });
+    });    
 });
