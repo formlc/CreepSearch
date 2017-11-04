@@ -16,15 +16,31 @@ $(document).ready(function() {
     var alphaVanAPIkey = "FJH3LVLVBBGH5FWT";
 
 
-    $("#add-email").on("click", function() {
+    $("#add-stock").on("click", function() {
 
-      person = $("#email-input").val();
+      person = $("#stock-input").val();
 
       $.ajax({        
         url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + person + "&apikey=" + alphaVanAPIkey,
         method: "GET"       
-      }).done(function(response) {
-          console.log(response); 
+      }).done(function(response) {  
+
+        var btnMaker = $("<button>")
+
+        btnMaker.addClass("btn")
+        btnMaker.addClass("stock-button")
+        btnMaker.html("<button>").text(person);
+
+        $("button-area").append(btnMaker);
+
+        TESTER = document.getElementById('result-panel-left');
+        Plotly.plot( TESTER, [{
+        x: [1, 2, 3, 4, 5],
+        y: [1, 2, 4, 8, 16] }], {
+        margin: { t: 0 } } );
+
+        console.log(response); 
+
       }).fail(function(error) {
         console.log(error);
       });
