@@ -15,6 +15,7 @@ $(document).ready(function() {
     var person = "";
     var alphaVanAPIkey = "FJH3LVLVBBGH5FWT";
 
+
     $("#add-email").on("click", function() {
 
       person = $("#email-input").val();
