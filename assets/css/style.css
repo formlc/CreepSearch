@@ -1,11 +1,13 @@
 body {
-	background-image: url("../images/ben.jpg");
+	background-image: url("../images/purple_no_border.jpg");
 	/*background-repeat: no-repeat;
-	background-size: cover;*/
+	background-size: cover; */
 }
 
 .jumbotron {
 	background-color:#a1a898;
+	margin-top: 20px;
+
 }
 
 .headingText {
@@ -18,18 +20,42 @@ h2 {
 	color: white;
 }
 
-.panel-primary {
-	border-color: #a1a898;
-}
-
-.panel-body {
-	border-color: #a1a898;
-}
-
 #panel-color {
 	background-color: #a1a898;
+	border-color: #a1a898;
 }
 
+#panel-border-color {
+	border-color: #a1a898;
+}
+
+.btn {
+	text-transform: uppercase;
+	background-color: #182c25;
+	color: white;
+}
+
+.stock-button {
+	margin-top: 10px;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+#result-panel-left {
+	height: 600px;
+	width: 100%;
+	margin-bottom: 30px;
+	}
+
+#result-panel-right {
+	height: 600px;
+	width: 100%;
+	margin-bottom: 30px;
+	}
+
+.svg-container {
+	left: -14px;
+}
 #add-stock {
 	background-color: #a1a898;
 	margin-top: 10px;

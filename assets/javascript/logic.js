@@ -16,14 +16,17 @@ $(document).ready(function() {
   	var database = firebase.database();
     var person = "";
     var alphaVanAPIkey = "FJH3LVLVBBGH5FWT";
+    var pixAPIkey = "6932043-19061e617df56f24c98781616";
 
 
-    $("#add-stock").on("click", function() {
+    $("#add-stock").on("click", function(event) {
+      event.preventDefault();
 
       person = $("#stock-input").val();
 
       $.ajax({        
-        url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + person + "&apikey=" + alphaVanAPIkey,
+        url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + 
+        person + "&apikey=" + alphaVanAPIkey,
         method: "GET"       
       }).done(function(response) { 
         console.log(response); 
@@ -32,7 +35,7 @@ $(document).ready(function() {
         btnMaker.text(person);
         btnMaker.addClass("btn");
         btnMaker.addClass("stock-button");
-        $(".button-area").append(btnMaker);
+        $(".button-area").prepend(btnMaker);
 
         var seriesData = response["Time Series (Daily)"];
         var numDays = [];
@@ -54,8 +57,8 @@ $(document).ready(function() {
         console.log(numDays);
 
 
-
         TESTER = document.getElementById('result-panel-left');
+        //TESTER = $("#result-panel-left");
         Plotly.plot( TESTER, [{
         x: numDays,
         y: closePrice }], {
@@ -65,5 +68,50 @@ $(document).ready(function() {
       }).fail(function(error) {
         console.log(error);
       });
-    });    
+
+      displayPicturesinRow();
+
+      function displayPicturesinRow() {
+
+        $.ajax({        
+          url:"https://pixabay.com/api/?key=" + 
+          pixAPIkey + "&q=" + encodeURI(person) + "&image_type=photo&per_page=5",
+            method: "GET"       
+        }).done(function(pixresponse) {
+          console.log(person);
+          console.log(pixresponse); 
+          results = pixresponse.hits;
+          console.log(results);
+
+            // make a new row for the products table
+
+          var newRow = $("<tr>");
+
+          for (var i = 0; i < results.length; i++) {
+
+            var tdColumn = $("<td>");
+
+            // make the image to be put into the new div
+            var productImage = $("<img>");
+
+            // the src attribute becomes a still image
+            productImage.attr("src", results[i].previewURL);
+
+            tdColumn.append(productImage);
+
+            newRow.append(tdColumn);
+
+          }
+
+            // then, prepend to the table, so latest row of pics is at the top
+          $("#tbody-new-row").prepend(newRow);
+    
+          });
+
+     }
+
+     $("#stock-input").val("");
+
+    });
+
 });
