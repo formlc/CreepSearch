@@ -9,7 +9,7 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-	<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+<!-- 	<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script> -->
 
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
@@ -26,58 +26,66 @@
             <h2>Enter your stock name below.</h2>
 
         </div>
-        
-        <div class="row">
-
-            <div class="col-lg-2">
-
-                <div class="panel panel-primary" id="panel-border-color">
-
-                    <div class="panel-heading" id="panel-color">
-                        <h3 class="panel-title">Enter Stock</h3>
-                    </div>
-
-                    <div class="panel-body">
-
-                        <div class="form-group">
-                            
-                            <label for="usr">Stock Code:</label>
-                            
-                            <input type="text" class="form-control" id="stock-input">
-
-                            <button type="submit" id="add-stock" class="btn btn-primary">Submit</button>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
 
         <div class="row">
-            
-            <div class="col-lg-2">
 
-                <div class="panel panel-primary" id="panel-border-color">
+			<div class="aside">
+	        
+		        <div class="row">
 
-                    <div class="panel-heading" id="panel-color">
-                        <h3 class="panel-title">Stock Buttons</h3>
-                    </div>
+		            <div class="col-lg-2">
 
-                </div>
+		                <div class="panel panel-primary" id="panel-border-color">
 
-                <div class="panel-body">
+		                    <div class="panel-heading" id="panel-color">
+		                        <h3 class="panel-title">Enter Stock</h3>
+		                    </div>
 
-                    <div class="button-area">
-                        
-                    </div>
+		                    <div class="panel-body">
 
-                </div>
-                
-            </div>
+		                        <div class="form-group">
+		                            
+		                            <label for="usr">Symbol:</label>
+		                            
+		                            <input type="text" class="form-control" id="stock-input">
+
+		                            <button type="submit" id="add-stock" class="btn btn-primary">Submit</button>
+
+		                        </div>
+
+		                    </div>
+
+		                </div>
+
+		            </div>
+
+		        </div>
+
+		        <div class="row">
+		            
+		            <div class="col-lg-2">
+
+		                <div class="panel panel-primary" id="panel-border-color">
+
+		                    <div class="panel-heading" id="panel-color">
+		                        <h3 class="panel-title">Stock Buttons</h3>
+		                    </div>
+
+		                </div>
+
+		                <div class="panel-body">
+
+		                    <div class="button-area">
+		                        
+		                    </div>
+
+		                </div>
+		                
+		            </div>
+
+		        </div>
+
+	        </div>
             
             <div class="col-lg-5">
 
@@ -91,7 +99,7 @@
 
                 </div>
 
-                <div class="panel-body" id="result-panel-left">
+                <div class="panel-body" id="result-panel-left" style="height: 500px; width: 500px;">
                     
                 </div>
                 
@@ -109,13 +117,11 @@
 
                 </div>
 
-                <div class="panel-body" id="result-panel-right">
+                <div class="panel-body" id="result-panel-right" style="height: 450px; width: 500px;">
                     
                 </div>
                 
             </div>
-
-        </div>
 
         <div class="row">
 

@@ -1,20 +1,19 @@
 var o;
-var person;
 
 $(document).ready(function() {
 
-	 var config = {
-    apiKey: "AIzaSyAtIKkFHyiQ82mAH41vHZRdqVA_RNAPwWM",
-    authDomain: "creepsearch.firebaseapp.com",
-    databaseURL: "https://creepsearch.firebaseio.com",
-    projectId: "creepsearch",
-    storageBucket: "",
-    messagingSenderId: "724675415469"
-  	};
+	 // var config = {
+  //   apiKey: "AIzaSyAtIKkFHyiQ82mAH41vHZRdqVA_RNAPwWM",
+  //   authDomain: "creepsearch.firebaseapp.com",
+  //   databaseURL: "https://creepsearch.firebaseio.com",
+  //   projectId: "creepsearch",
+  //   storageBucket: "",
+  //   messagingSenderId: "724675415469"
+  // 	};
 
-  	firebase.initializeApp(config);
+  // 	firebase.initializeApp(config);
 
-  	var database = firebase.database();
+  // 	var database = firebase.database();
     var person = "";
     var alphaVanAPIkey = "FJH3LVLVBBGH5FWT";
 
@@ -123,10 +122,12 @@ $(document).ready(function() {
         $(".button-area").append(btnMaker);
     })
 
-//ask chris about this shit something to do with dynamically created buttons
     $(".button-area").on("click", '.stock-button', function() {
       var person = $(this).attr("id");
       console.log(person) ;
+      var QueryURL = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + person + "&apikey=" + alphaVanAPIkey;
+      console.log(QueryURL);
+ 
       $.ajax({        
         url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + person + "&apikey=" + alphaVanAPIkey,
         method: "GET"       
