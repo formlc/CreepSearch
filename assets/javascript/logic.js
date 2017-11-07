@@ -18,6 +18,43 @@ $(document).ready(function() {
     var alphaVanAPIkey = "FJH3LVLVBBGH5FWT";
     var pixAPIkey = "6932043-19061e617df56f24c98781616";
 
+    function displayPictures(person) {
+
+      $.ajax({        
+        url:"https://pixabay.com/api/?key=" + 
+        pixAPIkey + "&q=" + encodeURI(person) + "&image_type=photo&per_page=5",
+        method: "GET"       
+      }).done(function(response) {
+        console.log(response); 
+        results = response.hits;
+        console.log(results);
+
+          // make a new row for the products table
+
+        var newRow = $("<tr>");
+
+        for (var i = 0; i < results.length; i++) {
+
+          var tdColumn = $("<td>");
+
+          // make the image to be put into the new div
+          var productImage = $("<img>");
+
+          // the src attribute becomes a still image
+          productImage.attr("src", results[i].previewURL);
+
+          tdColumn.append(productImage);
+
+          newRow.append(tdColumn);
+
+        }
+
+          // then, prepend to the table, so latest row of pics is at the top
+        $("#tbody-new-row").prepend(newRow);
+
+        });
+
+     }
 
     function volumeHist(time, volume) {
       var trace = {
@@ -113,8 +150,6 @@ $(document).ready(function() {
     $("#add-stock").on("click", function() {
 
         var person = $("#stock-input").val();
-        console.log(person);
-
         var btnMaker = $("<button>")
         btnMaker.text(person);
         btnMaker.addClass("btn");
@@ -156,66 +191,16 @@ $(document).ready(function() {
           volume.push(object["5. volume"]);
         }
 
-<<<<<<< HEAD
-        TESTER = document.getElementById('result-panel-left');
-        //TESTER = $("#result-panel-left");
-        Plotly.plot( TESTER, [{
-        x: numDays,
-        y: closePrice }], {
-        margin: { t: 0 } } );
- 
-=======
-
         //chart functions
         dailyPrice(time, close);
         JapaneseCandle(time, open, high, low, close, volume);
-                   
->>>>>>> dcb101c13882ca1d714f2878e469b0cd3d8f4b2a
+
+        //Company pictures
+        displayPictures(person);
 
       }).fail(function(error) {
         console.log(error);
       });
-
-      displayPicturesinRow();
-
-      function displayPicturesinRow() {
-
-        $.ajax({        
-          url:"https://pixabay.com/api/?key=" + 
-          pixAPIkey + "&q=" + encodeURI(person) + "&image_type=photo&per_page=5",
-            method: "GET"       
-        }).done(function(pixresponse) {
-          console.log(person);
-          console.log(pixresponse); 
-          results = pixresponse.hits;
-          console.log(results);
-
-            // make a new row for the products table
-
-          var newRow = $("<tr>");
-
-          for (var i = 0; i < results.length; i++) {
-
-            var tdColumn = $("<td>");
-
-            // make the image to be put into the new div
-            var productImage = $("<img>");
-
-            // the src attribute becomes a still image
-            productImage.attr("src", results[i].previewURL);
-
-            tdColumn.append(productImage);
-
-            newRow.append(tdColumn);
-
-          }
-
-            // then, prepend to the table, so latest row of pics is at the top
-          $("#tbody-new-row").prepend(newRow);
-    
-          });
-
-     }
 
      $("#stock-input").val("");
 
