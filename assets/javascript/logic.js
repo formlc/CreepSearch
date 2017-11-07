@@ -51,7 +51,7 @@ $(document).ready(function() {
           xaxis: 'x', 
           yaxis: 'y'
         };
-
+        
         var data = [trace1];
 
         var layout = {
