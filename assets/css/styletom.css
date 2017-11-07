@@ -1,7 +1,7 @@
 body {
-	background-image: url("../images/ben.jpg");
-	/*background-repeat: no-repeat;
-	background-size: cover;*/
+	background-image: url("../images/parchment-paper.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 .jumbotron {
@@ -29,6 +29,16 @@ h2 {
 #panel-color {
 	background-color: #a1a898;
 }
+
+#result-panel-left {
+	height: 600px;
+	width: 100%;
+	}
+
+#result-panel-right {
+	height: 600px;
+	width: 100%;
+	}
 
 #add-stock {
 	background-color: #a1a898;

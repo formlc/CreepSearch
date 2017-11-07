@@ -7,14 +7,16 @@
 
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 	<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
 
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<<<<<<< HEAD
 
 	<script type="text/javascript" src="assets/javascript/logic.js"></script>
 
+=======
+	
+>>>>>>> 5c0f68628c64b57193f4be303ee93e60640b03a6
 </head>
 <body>
 	
@@ -23,25 +25,28 @@
 		<div class="jumbotron">
 
 			<span class="headingText"><h1>STOCK SEARCH</h1></span>
+			
 			<h2>Enter your stock name below.</h2>
 
 		</div>
 		
 		<div class="row">
 
-			<div class="col-lg-3">
+			<div class="col-lg-2">
 
-				<div class="panel panel-primary">
+				<div class="panel panel-primary" id="panel-border-color">
  
  					<div class="panel-heading" id="panel-color">
+ 						
  						<h3 class="panel-title">Enter Stock</h3>
+ 					
  					</div>
 
  					<div class="panel-body">
 
  						<div class="form-group">
  							
- 							<label for="usr">Stock:</label>
+ 							<label for="usr">Stock Code:</label>
  							
  							<input type="text" class="form-control" id="stock-input">
 
@@ -55,16 +60,60 @@
 
 			</div>
 
+			<div class="col-lg-5">
+
+				<div class="panel panel-primary" id="panel-border-color">
+ 
+ 					<div class="panel-heading" id="panel-color">
+
+ 						<h3 class="panel-title">Results</h3>
+
+ 					</div>
+
+ 				</div>
+
+ 				<div class="panel-body" id="result-panel-left">
+ 					
+ 				</div>
+				
+			</div>
+
+			<div class="col-lg-5">
+
+				<div class="panel panel-primary" id="panel-border-color">
+ 
+ 					<div class="panel-heading" id="panel-color">
+
+ 						<h3 class="panel-title">Results</h3>
+
+ 					</div>
+
+ 				</div>
+
+<<<<<<< HEAD
+ 				<div class="panel-body" id="result-panel-left" style="width: 500px; height: 500px;">
+
+ 					<h3>Charts</h3>
+=======
+ 				<div class="panel-body" id="result-panel-right">
+>>>>>>> 5c0f68628c64b57193f4be303ee93e60640b03a6
+ 					
+ 				</div>
+				
+			</div>
+
 		</div>
 
 		<div class="row">
 			
 			<div class="col-lg-2">
 
-				<div class="panel panel-primary">
+				<div class="panel panel-primary" id="panel-border-color">
  
  					<div class="panel-heading" id="panel-color">
+ 						
  						<h3 class="panel-title">Stock Buttons</h3>
+ 					
  					</div>
 
  				</div>
@@ -78,51 +127,48 @@
 				</div>
 				
 			</div>
+
+		</div>
 			
-			<div class="col-lg-5">
+		<div class="row">
 
-				<div class="panel panel-primary">
- 
- 					<div class="panel-heading" id="panel-color">
-
- 						<h3 class="panel-title">Results</h3>
-
- 					</div>
-
- 				</div>
-
- 				<div class="panel-body" id="result-panel-left" style="width: 500px; height: 500px;">
-
- 					<h3>Charts</h3>
- 					
- 				</div>
-				
+			<div class="col-lg-2">
+					
 			</div>
 
-			<div class="col-lg-5">
+			<div class="col-lg-9">
 
-
-				<div class="panel panel-primary">
+				<div class="panel panel-primary" id="panel-border-color">
  
  					<div class="panel-heading" id="panel-color">
-
- 						<h3 class="panel-title">Results</h3>
-
+ 						
+ 						<h3 class="panel-title">Products</h3>
+ 					
  					</div>
 
  				</div>
 
  				<div class="panel-body" id="result-panel-right" style="height: 500px; width: 500px;">
 
- 					<h3>Charts</h3>
- 					
- 				</div>
-				
-			</div>
+ 					<table class="table">
 
+ 						<tbody id="tbody-new-row">
+ 						 		
+ 						 </tbody>
+
+ 					</table>
+ 						
+ 				</div>
+
+ 			</div>
+				
 		</div>
 
 	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/javascript/logictom.js"></script>
+
 
 </body>
 </html>
