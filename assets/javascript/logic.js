@@ -18,6 +18,8 @@ $(document).ready(function() {
     var alphaVanAPIkey = "FJH3LVLVBBGH5FWT";
     var pixAPIkey = "6932043-19061e617df56f24c98781616";
 
+    currency();
+
     function displayPictures(person) {
 
       $.ajax({        
@@ -147,6 +149,23 @@ $(document).ready(function() {
         Plotly.plot('result-panel-right', data, layout);
     }
 
+    function currency() {
+      var fromcurrency = "USD";
+      var tocurrency = "JPY";
+      //var tocurrency = ["CNY", "INR", "SEK", "RUB", "JPY"];
+      $.ajax({
+        url: "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=" + fromcurrency + "&to_currency="+ tocurrency + "&apikey=" + alphaVanAPIkey,
+        method: "GET"
+      }).done(function(response) {
+        console.log(response);
+
+
+      })
+
+    }
+    console.log("BLAP")
+    currency();
+
     $("#add-stock").on("click", function() {
 
         var person = $("#stock-input").val();
@@ -194,7 +213,6 @@ $(document).ready(function() {
         //chart functions
         dailyPrice(time, close);
         JapaneseCandle(time, open, high, low, close, volume);
-
         //Company pictures
         displayPictures(person);
 
