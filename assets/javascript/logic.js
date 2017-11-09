@@ -18,7 +18,10 @@ $(document).ready(function() {
     var alphaVanAPIkey = "FJH3LVLVBBGH5FWT";
     var pixAPIkey = "6932043-19061e617df56f24c98781616";
 
-    currency();
+    currency("USD", "JPY");
+    currency("USD", "CNY");
+    currency("USD", "INR");
+    cryptoCurrency("BTC", "USD");
 
     function displayPictures(person) {
 
@@ -150,22 +153,36 @@ $(document).ready(function() {
         Plotly.plot('result-panel-right', data, layout);
     }
 
-    function currency() {
-      var fromcurrency = "USD";
-      var tocurrency = "JPY";
+    function currency(fromCurrency, toCurrency) {
       //var tocurrency = ["CNY", "INR", "SEK", "RUB", "JPY"];
       $.ajax({
-        url: "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=" + fromcurrency + "&to_currency="+ tocurrency + "&apikey=" + alphaVanAPIkey,
+        url: "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=" + fromCurrency + "&to_currency="+ toCurrency + "&apikey=" + alphaVanAPIkey,
         method: "GET"
       }).done(function(response) {
         console.log(response);
+        var object = response["Realtime Currency Exchange Rate"];
+        var fCurrency = object["1. From_Currency Code"];
+        var tCurrency = object["3. To_Currency Code"];
+        var exchangeRate = object["5. Exchange Rate"];
+        exchangeRate = exchangeRate.split(".")[0];
 
+        $("#tbodycurrency").append("<tr> <td>" + fCurrency + "</td><td> 1 : " + exchangeRate + "</td><td>" + tCurrency + "</td>");
 
       })
 
     }
+
+    function cryptoCurrency(fromCurrency, toCurrency) {
+
+      $.ajax({
+        url: "https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=" + fromCurrency + "&market=" + toCurrency + "&apikey=demo",
+        method: "GET"
+      }).done(function(response) {
+        console.log(response);
+      })
+    }
+
     console.log("BLAP")
-    currency();
 
     $("#add-stock").on("click", function() {
 
@@ -176,6 +193,8 @@ $(document).ready(function() {
         btnMaker.addClass("stock-button");
         btnMaker.attr("id", person)
         $(".button-area").append(btnMaker);
+
+        $("#stock-input").val("");
     })
 
     $(".button-area").on("click", '.stock-button', function() {
@@ -211,6 +230,9 @@ $(document).ready(function() {
           volume.push(object["5. volume"]);
         }
 
+
+        $("#result-panel-left").empty();
+        $("#result-panel-right").empty();
         //chart functions
         dailyPrice(time, close);
         JapaneseCandle(time, open, high, low, close, volume);
@@ -220,8 +242,6 @@ $(document).ready(function() {
       }).fail(function(error) {
         console.log(error);
       });
-
-     $("#stock-input").val("");
 
     });
 
