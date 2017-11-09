@@ -1,4 +1,4 @@
-var o;
+
 
 $(document).ready(function() {
 
