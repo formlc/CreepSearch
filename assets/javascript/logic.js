@@ -27,7 +27,11 @@ $(document).ready(function() {
 
       $.ajax({        
         url:"https://pixabay.com/api/?key=" + 
+<<<<<<< HEAD
         pixAPIkey + "&q=" + encodeURI(ticker) + "&image_type=photo&per_page=5",
+=======
+        pixAPIkey + "&q=" + encodeURI(person) + "&image_type=photo&per_page=4",
+>>>>>>> 7b250ef5348419f48c8bda196378622f307c2d6e
         method: "GET"       
       }).done(function(response) {
         console.log(response); 
@@ -46,7 +50,8 @@ $(document).ready(function() {
           var productImage = $("<img>");
 
           // the src attribute becomes a still image
-          productImage.attr("src", results[i].previewURL);
+          productImage.attr("src", results[i].webformatURL);
+          productImage.addClass("image-border");
 
           tdColumn.append(productImage);
 
