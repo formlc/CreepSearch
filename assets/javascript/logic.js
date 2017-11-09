@@ -1,37 +1,44 @@
-var o;
-
 $(document).ready(function() {
 
-	 // var config = {
-  //   apiKey: "AIzaSyAtIKkFHyiQ82mAH41vHZRdqVA_RNAPwWM",
-  //   authDomain: "creepsearch.firebaseapp.com",
-  //   databaseURL: "https://creepsearch.firebaseio.com",
-  //   projectId: "creepsearch",
-  //   storageBucket: "",
-  //   messagingSenderId: "724675415469"
-  // 	};
+    var config = {
+    apiKey: "AIzaSyAtIKkFHyiQ82mAH41vHZRdqVA_RNAPwWM",
+    authDomain: "creepsearch.firebaseapp.com",
+    databaseURL: "https://creepsearch.firebaseio.com",
+    projectId: "creepsearch",
+    storageBucket: "creepsearch.appspot.com",
+    messagingSenderId: "724675415469"
+    };
 
-  // 	firebase.initializeApp(config);
+  	firebase.initializeApp(config);
 
-  // 	var database = firebase.database();
-    var ticker = "";
+
+  	var database = firebase.database();
     var alphaVanAPIkey = "FJH3LVLVBBGH5FWT";
     var pixAPIkey = "6932043-19061e617df56f24c98781616";
+
 
     currency("USD", "JPY");
     currency("USD", "CNY");
     currency("USD", "INR");
     cryptoCurrency("BTC", "USD");
 
+    // function addBBands(ticker) {
+    //   $.ajax({
+    //     url: "https://www.alphavantage.co/query?function=BBANDS&symbol=" + ticker + "&interval=daily&time_period=5&series_type=close&nbdevup=3&nbdevdn=3&apikey=" + alphaVanAPIkey, 
+    //     method: "GET"
+    //   }).done(function(response) {
+    //     console.log(response);
+    //   })
+    // }
+
     function displayPictures(ticker) {
 
       $.ajax({        
-        url:"https://pixabay.com/api/?key=" + pixAPIkey + "&q=" + encodeURI(person) + "&image_type=photo&per_page=4",
+        url:"https://pixabay.com/api/?key=" + pixAPIkey + "&q=" + encodeURI(ticker) + "&image_type=photo&per_page=4",
         method: "GET"       
       }).done(function(response) {
-        console.log(response); 
+
         results = response.hits;
-        console.log(results);
 
           // make a new row for the products table
 
@@ -160,7 +167,6 @@ $(document).ready(function() {
         url: "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=" + fromCurrency + "&to_currency="+ toCurrency + "&apikey=" + alphaVanAPIkey,
         method: "GET"
       }).done(function(response) {
-        console.log(response);
         var object = response["Realtime Currency Exchange Rate"];
         var fCurrency = object["1. From_Currency Code"];
         var tCurrency = object["3. To_Currency Code"];
@@ -176,40 +182,47 @@ $(document).ready(function() {
     function cryptoCurrency(fromCurrency, toCurrency) {
 
       $.ajax({
-        url: "https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=" + fromCurrency + "&market=" + toCurrency + "&apikey=demo",
+        url: "https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=" + fromCurrency + "&market=" + toCurrency + "&apikey=" + alphaVanAPIkey,
         method: "GET"
       }).done(function(response) {
-        console.log(response);
+        $("#tbodycryptocurrency").append("<tr> <td>" + fCurrency + "</td><td> 1 : " + exchangeRate + "</td><td>" + tCurrency + "</td>");
       })
     }
-
-    console.log("BLAP")
 
     $("#add-stock").on("click", function() {
 
         var ticker = $("#stock-input").val();
-        var btnMaker = $("<button>")
-        btnMaker.text(ticker);
-        btnMaker.addClass("btn");
-        btnMaker.addClass("stock-button");
-        btnMaker.attr("id", ticker)
-        $(".button-area").append(btnMaker);
+        console.log(database.ref().button);
+
+        database.ref().push({
+          button: ticker
+        });
+      
 
         $("#stock-input").val("");
-    })
+    });
+
+    database.ref().on("child_added", function(snapshot) {
+      console.log(snapshot.val().button);
+      var btnMaker = $("<button>")
+      btnMaker.text(snapshot.val().button);
+      btnMaker.addClass("btn");
+      btnMaker.addClass("stock-button");
+      btnMaker.attr("id", snapshot.val().button);
+      $(".button-area").append(btnMaker);
+
+    });
 
     $(".button-area").on("click", '.stock-button', function() {
       var ticker = $(this).attr("id");
       console.log(ticker) ;
       var QueryURL = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + ticker + "&apikey=" + alphaVanAPIkey;
-      console.log(QueryURL);
  
       $.ajax({        
         url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + ticker + "&apikey=" + alphaVanAPIkey,
         method: "GET"       
       }).done(function(response) { 
-        console.log(response); 
-        console.log("divs emptying");
+        console.log(response);
 
         var seriesData = response["Time Series (Daily)"];
         var time = [];
@@ -218,6 +231,7 @@ $(document).ready(function() {
         var low = [];
         var close = [];
         var volume = [];
+
 
         for (var index in seriesData) {
 
