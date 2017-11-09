@@ -1,38 +1,64 @@
 var o;
-var person;
 
 $(document).ready(function() {
 
-	 var config = {
-    apiKey: "AIzaSyAtIKkFHyiQ82mAH41vHZRdqVA_RNAPwWM",
-    authDomain: "creepsearch.firebaseapp.com",
-    databaseURL: "https://creepsearch.firebaseio.com",
-    projectId: "creepsearch",
-    storageBucket: "",
-    messagingSenderId: "724675415469"
-  	};
+	 // var config = {
+  //   apiKey: "AIzaSyAtIKkFHyiQ82mAH41vHZRdqVA_RNAPwWM",
+  //   authDomain: "creepsearch.firebaseapp.com",
+  //   databaseURL: "https://creepsearch.firebaseio.com",
+  //   projectId: "creepsearch",
+  //   storageBucket: "",
+  //   messagingSenderId: "724675415469"
+  // 	};
 
-  	firebase.initializeApp(config);
+  // 	firebase.initializeApp(config);
 
-  	var database = firebase.database();
+  // 	var database = firebase.database();
     var person = "";
     var alphaVanAPIkey = "FJH3LVLVBBGH5FWT";
     var pixAPIkey = "6932043-19061e617df56f24c98781616";
 
+    currency();
 
-<<<<<<< HEAD
-    $("#add-stock").on("click", function(event) {
-      event.preventDefault();
-
-      person = $("#stock-input").val();
+    function displayPictures(person) {
 
       $.ajax({        
-        url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + 
-        person + "&apikey=" + alphaVanAPIkey,
+        url:"https://pixabay.com/api/?key=" + 
+        pixAPIkey + "&q=" + encodeURI(person) + "&image_type=photo&per_page=4",
         method: "GET"       
-      }).done(function(response) { 
+      }).done(function(response) {
         console.log(response); 
-=======
+        results = response.hits;
+        console.log(results);
+
+          // make a new row for the products table
+
+        var newRow = $("<tr>");
+
+        for (var i = 0; i < results.length; i++) {
+
+          var tdColumn = $("<td>");
+
+          // make the image to be put into the new div
+          var productImage = $("<img>");
+
+          // the src attribute becomes a still image
+          productImage.attr("src", results[i].webformatURL);
+          productImage.addClass("image-border");
+
+          tdColumn.append(productImage);
+
+          newRow.append(tdColumn);
+
+        }
+
+          // then, prepend to the table, so latest row of pics is at the top
+        $("#tbody-new-row").prepend(newRow);
+
+        });
+
+     }
+
     function volumeHist(time, volume) {
       var trace = {
         x: time,
@@ -124,33 +150,45 @@ $(document).ready(function() {
         Plotly.plot('result-panel-right', data, layout);
     }
 
+    function currency() {
+      var fromcurrency = "USD";
+      var tocurrency = "JPY";
+      //var tocurrency = ["CNY", "INR", "SEK", "RUB", "JPY"];
+      $.ajax({
+        url: "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=" + fromcurrency + "&to_currency="+ tocurrency + "&apikey=" + alphaVanAPIkey,
+        method: "GET"
+      }).done(function(response) {
+        console.log(response);
+
+
+      })
+
+    }
+    console.log("BLAP")
+    currency();
+
     $("#add-stock").on("click", function() {
 
         var person = $("#stock-input").val();
-        console.log(person);
->>>>>>> dcb101c13882ca1d714f2878e469b0cd3d8f4b2a
-
         var btnMaker = $("<button>")
         btnMaker.text(person);
         btnMaker.addClass("btn");
         btnMaker.addClass("stock-button");
-<<<<<<< HEAD
-        $(".button-area").prepend(btnMaker);
-=======
         btnMaker.attr("id", person)
         $(".button-area").append(btnMaker);
     })
 
-//ask chris about this shit something to do with dynamically created buttons
     $(".button-area").on("click", '.stock-button', function() {
       var person = $(this).attr("id");
       console.log(person) ;
+      var QueryURL = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + person + "&apikey=" + alphaVanAPIkey;
+      console.log(QueryURL);
+ 
       $.ajax({        
         url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + person + "&apikey=" + alphaVanAPIkey,
         method: "GET"       
       }).done(function(response) { 
         console.log(response); 
->>>>>>> dcb101c13882ca1d714f2878e469b0cd3d8f4b2a
 
         var seriesData = response["Time Series (Daily)"];
         var time = [];
@@ -173,66 +211,15 @@ $(document).ready(function() {
           volume.push(object["5. volume"]);
         }
 
-<<<<<<< HEAD
-        TESTER = document.getElementById('result-panel-left');
-        //TESTER = $("#result-panel-left");
-        Plotly.plot( TESTER, [{
-        x: numDays,
-        y: closePrice }], {
-        margin: { t: 0 } } );
- 
-=======
-
         //chart functions
         dailyPrice(time, close);
         JapaneseCandle(time, open, high, low, close, volume);
-                   
->>>>>>> dcb101c13882ca1d714f2878e469b0cd3d8f4b2a
+        //Company pictures
+        displayPictures(person);
 
       }).fail(function(error) {
         console.log(error);
       });
-
-      displayPicturesinRow();
-
-      function displayPicturesinRow() {
-
-        $.ajax({        
-          url:"https://pixabay.com/api/?key=" + 
-          pixAPIkey + "&q=" + encodeURI(person) + "&image_type=photo&per_page=5",
-            method: "GET"       
-        }).done(function(pixresponse) {
-          console.log(person);
-          console.log(pixresponse); 
-          results = pixresponse.hits;
-          console.log(results);
-
-            // make a new row for the products table
-
-          var newRow = $("<tr>");
-
-          for (var i = 0; i < results.length; i++) {
-
-            var tdColumn = $("<td>");
-
-            // make the image to be put into the new div
-            var productImage = $("<img>");
-
-            // the src attribute becomes a still image
-            productImage.attr("src", results[i].previewURL);
-
-            tdColumn.append(productImage);
-
-            newRow.append(tdColumn);
-
-          }
-
-            // then, prepend to the table, so latest row of pics is at the top
-          $("#tbody-new-row").prepend(newRow);
-    
-          });
-
-     }
 
      $("#stock-input").val("");
 

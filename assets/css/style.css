@@ -37,8 +37,15 @@ h2 {
 
 .stock-button {
 	margin-top: 10px;
-	margin-left: 20px;
-	margin-right: 20px;
+	margin-right: 40px;
+}
+
+.stock-button:hover {
+    color: #a1a898;
+}
+
+.stock-button:focus {
+	color: #a1a898;
 }
 
 #result-panel-left {
@@ -56,8 +63,25 @@ h2 {
 .svg-container {
 	left: -14px;
 }
+
 #add-stock {
 	background-color: #a1a898;
 	margin-top: 10px;
 	border-color: #a1a898;
 }
+
+.image-border {
+	border: 5px solid #a1a898;
+	outline: #686868 solid 3px;
+	width: 150px;
+    height: 100px;
+}
+
+.iconChar {
+	margin-right: 5px;
+    width: 140px;
+    height: 140px;
+    border: 10px solid white;
+    outline-color: green;
+
+    }
