@@ -26,12 +26,7 @@ $(document).ready(function() {
     function displayPictures(ticker) {
 
       $.ajax({        
-        url:"https://pixabay.com/api/?key=" + 
-<<<<<<< HEAD
-        pixAPIkey + "&q=" + encodeURI(ticker) + "&image_type=photo&per_page=5",
-=======
-        pixAPIkey + "&q=" + encodeURI(person) + "&image_type=photo&per_page=4",
->>>>>>> 7b250ef5348419f48c8bda196378622f307c2d6e
+        url:"https://pixabay.com/api/?key=" + pixAPIkey + "&q=" + encodeURI(person) + "&image_type=photo&per_page=4",
         method: "GET"       
       }).done(function(response) {
         console.log(response); 
