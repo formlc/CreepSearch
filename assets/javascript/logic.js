@@ -14,7 +14,7 @@ $(document).ready(function() {
   // 	firebase.initializeApp(config);
 
   // 	var database = firebase.database();
-    var person = "";
+    var ticker = "";
     var alphaVanAPIkey = "FJH3LVLVBBGH5FWT";
     var pixAPIkey = "6932043-19061e617df56f24c98781616";
 
@@ -23,11 +23,11 @@ $(document).ready(function() {
     currency("USD", "INR");
     cryptoCurrency("BTC", "USD");
 
-    function displayPictures(person) {
+    function displayPictures(ticker) {
 
       $.ajax({        
         url:"https://pixabay.com/api/?key=" + 
-        pixAPIkey + "&q=" + encodeURI(person) + "&image_type=photo&per_page=5",
+        pixAPIkey + "&q=" + encodeURI(ticker) + "&image_type=photo&per_page=5",
         method: "GET"       
       }).done(function(response) {
         console.log(response); 
@@ -72,13 +72,15 @@ $(document).ready(function() {
     }
 
     function dailyPrice(time, close) {
-        Plotly.plot( 'result-panel-left', [{
+      console.log("1st");
+        Plotly.newPlot( 'result-panel-left', [{
         x: time,
         y: close }], {
         margin: { t: 0 } } );
     }
 
     function JapaneseCandle(time, open, high, low, close, volume) {
+      console.log("2nd");
       var trace1 = {
   
           x: time, 
@@ -149,7 +151,7 @@ $(document).ready(function() {
             ]
         };
 
-        Plotly.plot('result-panel-right', data, layout);
+        Plotly.newPlot('result-panel-right', data, layout);
     }
 
     function currency(fromCurrency, toCurrency) {
@@ -185,28 +187,29 @@ $(document).ready(function() {
 
     $("#add-stock").on("click", function() {
 
-        var person = $("#stock-input").val();
+        var ticker = $("#stock-input").val();
         var btnMaker = $("<button>")
-        btnMaker.text(person);
+        btnMaker.text(ticker);
         btnMaker.addClass("btn");
         btnMaker.addClass("stock-button");
-        btnMaker.attr("id", person)
+        btnMaker.attr("id", ticker)
         $(".button-area").append(btnMaker);
 
         $("#stock-input").val("");
     })
 
     $(".button-area").on("click", '.stock-button', function() {
-      var person = $(this).attr("id");
-      console.log(person) ;
-      var QueryURL = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + person + "&apikey=" + alphaVanAPIkey;
+      var ticker = $(this).attr("id");
+      console.log(ticker) ;
+      var QueryURL = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + ticker + "&apikey=" + alphaVanAPIkey;
       console.log(QueryURL);
  
       $.ajax({        
-        url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + person + "&apikey=" + alphaVanAPIkey,
+        url:"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + ticker + "&apikey=" + alphaVanAPIkey,
         method: "GET"       
       }).done(function(response) { 
         console.log(response); 
+        console.log("divs emptying");
 
         var seriesData = response["Time Series (Daily)"];
         var time = [];
@@ -229,14 +232,11 @@ $(document).ready(function() {
           volume.push(object["5. volume"]);
         }
 
-
-        $("#result-panel-left").empty();
-        $("#result-panel-right").empty();
         //chart functions
         dailyPrice(time, close);
         JapaneseCandle(time, open, high, low, close, volume);
         //Company pictures
-        displayPictures(person);
+        displayPictures(ticker);
 
       }).fail(function(error) {
         console.log(error);
