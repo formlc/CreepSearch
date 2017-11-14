@@ -192,23 +192,26 @@ $(document).ready(function() {
     $("#add-stock").on("click", function() {
 
         var ticker = $("#stock-input").val();
-        console.log(database.ref().button);
 
-        database.ref().push({
-          button: ticker
-        });
-      
+        if (ticker !="") {
+          database.ref().push({
+            button: ticker
+          });
+        }
 
         $("#stock-input").val("");
     });
 
     database.ref().on("child_added", function(snapshot) {
+      
       console.log(snapshot.val().button);
+
       var btnMaker = $("<button>")
       btnMaker.text(snapshot.val().button);
       btnMaker.addClass("btn");
       btnMaker.addClass("stock-button");
       btnMaker.attr("id", snapshot.val().button);
+      
       $(".button-area").append(btnMaker);
 
     });
